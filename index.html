@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070b14">
+  <meta name="description" content="Specialized Showdown — a fast 2v2 hero arena game.">
+  <title>Specialized Showdown</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Specialized Showdown home">
+        <span class="brand-mark">SS</span>
+        <span>
+          <strong>SPECIALIZED</strong>
+          <small>SHOWDOWN // 2V2 ARENA</small>
+        </span>
+      </a>
+      <div class="top-pills">
+        <span><i class="online-dot"></i> SYSTEM READY</span>
+        <button id="soundButton" class="icon-button" type="button" aria-label="Toggle sound">SOUND: ON</button>
+      </div>
+    </header>
+
+    <section id="menuScreen" class="screen menu-screen">
+      <div class="hero-copy">
+        <p class="eyebrow">TACTICAL COMBAT PROTOCOL</p>
+        <h1>CHOOSE A ROLE.<br><em>OWN THE ARENA.</em></h1>
+        <p class="lede">Build a two-fighter squad from eleven specialists. Control wind, water, fire, thunder, divine healing, sound, illusions, blood, ice, dragons, or insanity.</p>
+        <div class="rule-strip">
+          <span><b>01</b> Pick fighters</span>
+          <span><b>02</b> Win team fights</span>
+          <span><b>03</b> First to 8 KOs</span>
+        </div>
+      </div>
+
+      <div class="setup-panel glass-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">MATCH SETUP</p>
+            <h2>Deploy your squad</h2>
+          </div>
+          <span id="pickCount" class="pick-count">0 / 2</span>
+        </div>
+
+        <div class="mode-toggle" role="group" aria-label="Game mode">
+          <button class="mode-button active" type="button" data-mode="solo">
+            <strong>SOLO COMMAND</strong>
+            <small>You + 3 bots</small>
+          </button>
+          <button class="mode-button" type="button" data-mode="local">
+            <strong>LOCAL DUEL</strong>
+            <small>2 players + 2 bots</small>
+          </button>
+        </div>
+
+        <p class="selection-help">Select your fighter, then select your teammate.</p>
+        <div id="roster" class="roster" aria-label="Character roster"></div>
+
+        <div class="squad-preview">
+          <div class="squad-label"><span>ALPHA SQUAD</span><small id="modeDescription">Player 1 + AI teammate</small></div>
+          <div id="squadSlots" class="squad-slots">
+            <button class="squad-slot empty" type="button"><span>1</span><b>SELECT</b></button>
+            <button class="squad-slot empty" type="button"><span>2</span><b>SELECT</b></button>
+          </div>
+        </div>
+
+        <button id="startButton" class="deploy-button" type="button" disabled>
+          <span>DEPLOY TO ARENA</span><b>→</b>
+        </button>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen hidden" aria-label="Game arena">
+      <div class="match-hud">
+        <div class="team-score alpha-score">
+          <div><small>ALPHA</small><strong id="alphaScore">0</strong></div>
+          <div id="alphaPortraits" class="hud-portraits"></div>
+        </div>
+        <div class="match-center">
+          <span id="matchModeLabel">TEAM DEATHMATCH</span>
+          <strong id="matchTimer">03:00</strong>
+          <small>FIRST TO 8</small>
+        </div>
+        <div class="team-score omega-score">
+          <div id="omegaPortraits" class="hud-portraits"></div>
+          <div><small>OMEGA</small><strong id="omegaScore">0</strong></div>
+        </div>
+      </div>
+
+      <div class="arena-wrap">
+        <canvas id="gameCanvas" width="1280" height="720" aria-label="2v2 battle arena"></canvas>
+        <div id="countdown" class="countdown"></div>
+        <div id="killFeed" class="kill-feed" aria-live="polite"></div>
+        <button id="pauseButton" class="pause-button" type="button">II</button>
+      </div>
+
+      <div id="playerBars" class="player-bars"></div>
+      <div id="controlsHint" class="controls-hint"></div>
+    </section>
+
+    <section id="resultsScreen" class="screen results-screen hidden">
+      <div class="result-card glass-panel">
+        <p id="resultEyebrow" class="eyebrow">MATCH COMPLETE</p>
+        <h2 id="resultTitle">ALPHA VICTORY</h2>
+        <p id="resultSubtitle">The arena belongs to your squad.</p>
+        <div class="final-score">
+          <div><small>ALPHA</small><strong id="finalAlpha">8</strong></div>
+          <span>—</span>
+          <div><small>OMEGA</small><strong id="finalOmega">4</strong></div>
+        </div>
+        <div id="matchStats" class="match-stats"></div>
+        <div class="result-actions">
+          <button id="rematchButton" class="deploy-button" type="button"><span>REMATCH</span><b>↻</b></button>
+          <button id="rosterButton" class="secondary-button" type="button">CHANGE SQUAD</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="pauseOverlay" class="pause-overlay hidden">
+    <div class="pause-card glass-panel">
+      <p class="eyebrow">TACTICAL PAUSE</p>
+      <h2>GAME PAUSED</h2>
+      <button id="resumeButton" class="deploy-button" type="button"><span>RESUME</span><b>▶</b></button>
+      <button id="quitButton" class="secondary-button" type="button">RETURN TO ROSTER</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
